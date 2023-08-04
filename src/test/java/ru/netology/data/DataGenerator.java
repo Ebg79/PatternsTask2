@@ -30,10 +30,7 @@ public class DataGenerator {
         //  Пример реализации метода показан в условии к задаче.
         given()
                 .spec(requestSpec)
-                .body(new RegistrationDto(
-                        user.getLogin(),
-                        user.getPassword(),
-                        user.getStatus()))
+                .body(user)
                 .when()
                 .post("/api/system/users")
                 .then()
@@ -42,7 +39,7 @@ public class DataGenerator {
     }
 
     public static String getRandomLogin() {
-        String login = faker.name().firstName();
+        String login = faker.name().username();
         return login;
     }
 
@@ -56,14 +53,15 @@ public class DataGenerator {
         }
 
         public static RegistrationDto getUser(String status) {
-            return new RegistrationDto(getRandomLogin(), getRandomPassword(), status);
+        var user = new RegistrationDto(getRandomLogin(), getRandomPassword(), status);
+        return user;
 
         }
 
         public static RegistrationDto getRegisteredUser(String status) {
-            var getRegisteredUser = getUser(status);
-            sendRequest(getRegisteredUser);
-            return getRegisteredUser;
+            var registeredUser = getUser(status);
+            sendRequest(registeredUser);
+            return registeredUser;
         }
     }
 

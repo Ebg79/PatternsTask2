@@ -25,9 +25,7 @@ public class DataGenerator {
     }
 
     private static void sendRequest(RegistrationDto user) {
-        // TODO: отправить запрос на указанный в требованиях path, передав в body запроса объект user
-        //  и не забудьте передать подготовленную спецификацию requestSpec.
-        //  Пример реализации метода показан в условии к задаче.
+
         given()
                 .spec(requestSpec)
                 .body(user)
@@ -35,15 +33,16 @@ public class DataGenerator {
                 .post("/api/system/users")
                 .then()
                 .statusCode(200);
-
     }
 
     public static String getRandomLogin() {
+
         String login = faker.name().username();
         return login;
     }
 
     public static String getRandomPassword() {
+
         String password = faker.internet().password();
         return password;
     }
@@ -52,10 +51,11 @@ public class DataGenerator {
         private Registration() {
         }
 
-        public static RegistrationDto getUser(String status) {
-            var user = new RegistrationDto(getRandomLogin(), getRandomPassword(), status);
-            return user;
 
+        public static RegistrationDto getUser(String status) {
+
+            RegistrationDto user = new RegistrationDto(getRandomLogin(), getRandomPassword(), status);
+            return user;
         }
 
         public static RegistrationDto getRegisteredUser(String status) {
@@ -70,6 +70,5 @@ public class DataGenerator {
         String login;
         String password;
         String status;
-
     }
 }
